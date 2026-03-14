@@ -28,8 +28,19 @@ def classify_complaint(row: dict) -> dict:
         category = "Waste"
     elif "noise" in description:
         category = "Noise"
+    elif "music" in description or "loud" in description:
+    category = "Noise"
+
+    elif "manhole" in description:
+    category = "Drain Blockage"
+
+    elif "animal" in description:
+    category = "Waste"
+
+    elif "crack" in description or "sinking" in description:
+    category = "Road Damage"      
     elif "drain" in description:
-        category = "Drain Blockage"
+    category = "Drain Blockage"
 
     priority = "Standard"
 
