@@ -1,0 +1,16 @@
+complaint_id,category,priority,reason,flag
+PM-202401,Pothole,Standard,"Based on complaint text containing: ""large pothole 60cm wide causing tyre dam""",
+PM-202402,Pothole,Urgent,"Based on complaint text containing: ""deep pothole near bus stop. school child""",
+PM-202406,Flooding,Standard,"Based on complaint text containing: ""underpass flooded knee-deep after 2hrs r""",
+PM-202408,Flooding,Standard,"Based on complaint text containing: ""bus stand flooded. passengers standing i""",
+PM-202410,Streetlight,Standard,"Based on complaint text containing: ""three consecutive streetlights out for 1""",
+PM-202411,Streetlight,Urgent,"Based on complaint text containing: ""streetlight flickering and sparking. ele""",
+PM-202413,Waste,Standard,"Based on complaint text containing: ""overflowing garbage bins near vegetable """,
+PM-202418,Other,Standard,"Based on complaint text containing: ""wedding venue playing music past midnigh""",NEEDS_REVIEW
+PM-202419,Other,Standard,"Based on complaint text containing: ""road surface cracked and sinking near ut""",NEEDS_REVIEW
+PM-202420,Other,Urgent,"Based on complaint text containing: ""manhole cover missing. risk of serious i""",NEEDS_REVIEW
+PM-202427,Flooding,Standard,"Based on complaint text containing: ""bridge approach floods in 30mins of rain""",
+PM-202428,Other,Standard,"Based on complaint text containing: ""dead animal not removed for 36 hours. he""",NEEDS_REVIEW
+PM-202430,Streetlight,Standard,"Based on complaint text containing: ""heritage street, lights out. safety conc""",
+PM-202433,Waste,Standard,"Based on complaint text containing: ""bulk waste from apartment renovation dum""",
+PM-202446,Other,Urgent,"Based on complaint text containing: ""footpath tiles broken and upturned. elde""",NEEDS_REVIEW

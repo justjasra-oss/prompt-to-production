@@ -5,27 +5,81 @@ Starter file. Build this using the RICE → agents.md → skills.md → CRAFT wo
 import argparse
 import csv
 
+severity_keywords = ["injury","child","school","hospital","ambulance","fire","hazard","fell","collapse"]
+
+allowed_categories = [
+"Pothole","Flooding","Streetlight","Waste","Noise",
+"Road Damage","Heritage Damage","Heat Hazard","Drain Blockage","Other"
+]
+
 def classify_complaint(row: dict) -> dict:
-    """
-    Classify a single complaint row.
-    Returns: dict with keys: complaint_id, category, priority, reason, flag
-    
-    TODO: Build this using your AI tool guided by your agents.md and skills.md.
-    Your RICE enforcement rules must be reflected in this function's behaviour.
-    """
-    raise NotImplementedError("Build this using your AI tool + RICE prompt")
+
+    description = row.get("description","").lower()
+
+    category = "Other"
+
+    if "pothole" in description:
+        category = "Pothole"
+    elif "flood" in description or "water" in description:
+        category = "Flooding"
+    elif "light" in description:
+        category = "Streetlight"
+    elif "garbage" in description or "waste" in description:
+        category = "Waste"
+    elif "noise" in description:
+        category = "Noise"
+    elif "drain" in description:
+        category = "Drain Blockage"
+
+    priority = "Standard"
+
+    for word in severity_keywords:
+        if word in description:
+            priority = "Urgent"
+
+    reason = f'Based on complaint text containing: "{description[:40]}"'
+
+    flag = ""
+    if category == "Other":
+        flag = "NEEDS_REVIEW"
+
+    return {
+        "complaint_id": row.get("complaint_id",""),
+        "category": category,
+        "priority": priority,
+        "reason": reason,
+        "flag": flag
+    }
 
 
 def batch_classify(input_path: str, output_path: str):
-    """
-    Read input CSV, classify each row, write results CSV.
-    
-    TODO: Build this using your AI tool.
-    Must: flag nulls, not crash on bad rows, produce output even if some rows fail.
-    """
-    raise NotImplementedError("Build this using your AI tool + RICE prompt")
 
+    results = []
 
+    with open(input_path, newline="") as infile:
+        reader = csv.DictReader(infile)
+
+        for row in reader:
+            try:
+                result = classify_complaint(row)
+                results.append(result)
+            except Exception:
+                results.append({
+                    "complaint_id": row.get("complaint_id",""),
+                    "category": "Other",
+                    "priority": "Low",
+                    "reason": "Row processing failed",
+                    "flag": "NEEDS_REVIEW"
+                })
+
+    with open(output_path, "w", newline="") as outfile:
+
+        fieldnames = ["complaint_id","category","priority","reason","flag"]
+
+        writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+        writer.writerows(results)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="UC-0A Complaint Classifier")
     parser.add_argument("--input",  required=True, help="Path to test_[city].csv")
